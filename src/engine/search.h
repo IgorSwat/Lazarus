@@ -5,6 +5,9 @@
 #include "moveord.h"
 #include "nnue.h"
 #include "searchconfig.h"
+
+#include "../../config.h"
+
 #include <algorithm>
 
 
@@ -68,7 +71,7 @@ namespace Search {
     {
     public:
         Crawler(TranspositionTable* ttable, History* history) : 
-            m_ttable(ttable), m_history(history) { m_nnue.load("model/model_best.nnue"); }
+            m_ttable(ttable), m_history(history) { m_nnue.load(ROOT_DIR + "model/model_best.nnue"); }
 
         // Search
         // - This is only an API function - the biggest part of search implementation is packed inside helper functions
@@ -135,7 +138,7 @@ namespace Search {
             Age age = 0;
 
             // Evaluations
-            // - static_eval always somces from NNUE evaluation, and eval is a value obtained from transposition table
+            // - static_eval always comes from NNUE evaluation, and eval is a value obtained from transposition table
             Eval static_eval = Evaluation::NO_EVAL;
             Eval eval = Evaluation::NO_EVAL;
 

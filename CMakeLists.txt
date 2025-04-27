@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
 project(Lazarus LANGUAGES CXX)
 
 # Fix the output directory to access models and resources
@@ -41,8 +41,13 @@ endif()
 
 add_executable(Lazarus ${SOURCES})
 
+# Set project root global variable
+get_filename_component(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}" ABSOLUTE)
+target_compile_definitions(Lazarus PRIVATE PROJECT_ROOT_DIR="${PROJECT_ROOT_DIR}")
+
 # Add header files
 target_include_directories(Lazarus PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR},
     ${CMAKE_CURRENT_SOURCE_DIR}/src/engine
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utilities
 )
@@ -51,9 +56,39 @@ if(USE_GUI)
     target_compile_definitions(Lazarus PRIVATE USE_GUI)
     target_include_directories(Lazarus PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/gui)
 
-    # Link SFML library for GUI
-    find_package(SFML 2.5.1 COMPONENTS graphics window system REQUIRED)
-    target_link_libraries(Lazarus PRIVATE SFML::Graphics SFML::Window SFML::System)
+    # Try to find SFML automatically
+    set(SFML_VERSION 2.5.1)
+    find_package(SFML ${SFML_VERSION} COMPONENTS graphics window system)
+
+    if (NOT SFML_FOUND)
+        message(STATUS "SFML ${SFML_VERSION} not found - downloading from GitHub...")
+        
+        include(FetchContent)
+
+        FetchContent_Declare(
+            sfml
+            GIT_REPOSITORY https://github.com/SFML/SFML.git
+            GIT_TAG        ${SFML_VERSION}
+        )
+
+        FetchContent_GetProperties(sfml)
+        if (NOT sfml_POPULATED)
+            FetchContent_Populate(sfml)
+            set(SFML_BUILD_AUDIO        OFF CACHE BOOL "" FORCE)
+            set(SFML_BUILD_NETWORK      OFF CACHE BOOL "" FORCE)
+            set(SFML_BUILD_EXAMPLES     OFF CACHE BOOL "" FORCE)
+            set(SFML_BUILD_DOC          OFF CACHE BOOL "" FORCE)
+            set(SFML_BUILD_TESTS        OFF CACHE BOOL "" FORCE)
+
+            add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
+            list(APPEND CMAKE_PREFIX_PATH ${sfml_BINARY_DIR})
+        endif()
+    endif()
+
+    # find_package(SFML ${SFML_VERSION} COMPONENTS graphics window system CONFIG REQUIRED)
+
+    # Link to the SFML library
+    target_link_libraries(Lazarus PRIVATE sfml-graphics sfml-window sfml-system)
 endif()
 
 if(DEV)

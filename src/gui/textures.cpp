@@ -15,7 +15,7 @@ namespace GUI {
 		// Texture path defines
 		// --------------------
 
-		const std::string TEXTURES_ROOT = "resource/";
+		const std::string TEXTURES_ROOT = ROOT_DIR + "resource/";
 
 		const std::string BACK = TEXTURES_ROOT + "back.png";
 		const std::string REFRESH = TEXTURES_ROOT + "refresh.png";

@@ -2,3 +2,9 @@
 build
 
 lol/**
+
+*.exe
+*.pdb
+*.dll
+*.lib
+*.so

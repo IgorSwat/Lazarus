@@ -1,6 +1,9 @@
 #pragma once
 
+#include "../../config.h"
+
 #include "../engine/types.h"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

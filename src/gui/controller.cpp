@@ -84,7 +84,7 @@ namespace GUI {
 
 		engine_nav.addButton(RoundedButton(ButtonType::PLAY, NAVBAR_BUTTON_SIZE, NAVBAR_BUTTON_ROUND));
 
-		font.loadFromFile("resource/octosquares.ttf");
+		font.loadFromFile(ROOT_DIR + "resource/octosquares.ttf");
 		eval_text.setStyle(sf::Text::Bold);
     	eval_text.setPosition(ENGINE_NAVBAR_LEFT_MARGIN + ENGINE_NAVBAR_WIDTH + DEPTH_INPUT_LEFT_MARGIN + DEPTH_INPUT_WIDTH + EVAL_TEXT_LEFT_MARGIN, 
 							  BOARD_SIZE + POS_NAVBAR_TOTAL_HEIGHT + POS_INPUT_TOTAL_HEIGHT + (DEPTH_INPUT_HEIGHT - EVAL_FONT_SIZE) / 3);
