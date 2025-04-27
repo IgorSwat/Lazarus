@@ -64,10 +64,16 @@ To configure the project and generate the appropriate build files, run the follo
   ```
   cmake .. -DUSE_GUI=OFF
   ```
-- For **GUI mode** (with SFML enabled):
+- For **GUI mode** (with SFML 2.5.1 enabled):
   ```
   cmake .. -DUSE_GUI=ON
   ```
+  If you already have SFML installed on your system, you can specify its location manually using the *SFML_DIR* option:
+  ```
+  cmake .. -DUSE_GUI=ON -DSFML_DIR=/path/to/SFML-2.5.1/lib/cmake/SFML
+  ```
+  If SFML is not found, it will be automatically downloaded and built from source along with the project.
+  
 - If you want to enable development tests (DEV):
   ```
   cmake .. -DDEV=ON
