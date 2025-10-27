@@ -1,0 +1,15 @@
+# IDE
+.vscode
+.github
+
+# Build artifacts
+build
+*.exe
+*.pdb
+*.dll
+*.lib
+*.so
+
+# Temporary (or not?)
+resource
+md
