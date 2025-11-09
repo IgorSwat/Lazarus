@@ -3,7 +3,7 @@
 #include <iomanip>
 
 
-namespace Chess {
+namespace chess {
 
     // -----------------------
     // Move methods - printing
@@ -11,7 +11,7 @@ namespace Chess {
 
     std::ostream& operator<<(std::ostream& os, const Move& move)
     {
-        if (move == Moves::null)
+        if (move == moves::null)
             os << "null_move";
         else {
             os << "Move: " << move.from() << " -> " << move.to();

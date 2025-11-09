@@ -1,5 +1,5 @@
 #include "test.h"
-#include "../src/engine/chess/pieces.h"
+#include <chess/pieces.h>
 #include <tuple>
 
 

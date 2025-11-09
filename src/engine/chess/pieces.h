@@ -1,7 +1,7 @@
 #pragma once
 
 #include "chessboard.h"
-#include "../bitboards/magics.h"
+#include <bitboards/magics.h>
 
 
 namespace chess::pieces {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../bitboards/bitboards.h"
 #include <algorithm>
+#include <bitboards/bitboards.h>
 #include <cstdlib>
 
 

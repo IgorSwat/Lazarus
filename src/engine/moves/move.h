@@ -1,16 +1,16 @@
 #pragma once
 
 #include "types.h"
-#include "../chess/types.h"
+#include <chess/types.h>
 
 
-namespace Chess {
+namespace chess {
 
     // -------------------------------
     // Helper definitions - move flags
     // -------------------------------
 
-    namespace Moves {
+    namespace moves {
 
         // A unique identifier of a move. Consists of (from most important to least important bits):
         // - 4 bits for move flags (promotion bit, capture bit, and two special bits indicating special types of moves)
@@ -64,28 +64,28 @@ namespace Chess {
     public:
         // Constructors
         constexpr Move() = default;                                                         // Static initialization
-        Move(Square from, Square to, Moves::Flags flags) :
-            m_move((flags & 0xf) << 12 | Moves::Mask(to) << 6 | Moves::Mask(from)) {}       // Dynamic (runtime) initialization
+        Move(Square from, Square to, moves::Flags flags) :
+            m_move((flags & 0xf) << 12 | moves::Mask(to) << 6 | moves::Mask(from)) {}       // Dynamic (runtime) initialization
 
         // Getters - move squares
         Square from() const { return Square(m_move & 0x3f); }
 	    Square to() const { return Square((m_move >> 6) & 0x3f); }
 
         // Getters - mask & flags
-        Moves::Mask raw() const { return m_move; }                 // Returns the whole mask (a complete move identifier)
-        Moves::Mask butterfly() const { return m_move & 0x0fff; }  // Returns a butterfly index (indentyfing move by from and to squares)
-        Moves::Flags flags() const { return m_move >> 12; }        // Returns just a move flags (specyfing move type)
+        moves::Mask raw() const { return m_move; }                 // Returns the whole mask (a complete move identifier)
+        moves::Mask butterfly() const { return m_move & 0x0fff; }  // Returns a butterfly index (indentyfing move by from and to squares)
+        moves::Flags flags() const { return m_move >> 12; }        // Returns just a move flags (specyfing move type)
 
         // Getters - move type & properties
-        MoveType type() const { return Moves::type_of(flags()); }
+        MoveType type() const { return moves::type_of(flags()); }
         PieceType promotion_type() const { return is_promotion() ? PieceType((flags() & 0x3) + 2) : NULL_PIECE_TYPE; }
         Castle castle_type() const { return is_castle() ? Castle((flags() & 0x3) - 1) : NO_CASTLE; }
-        bool is_capture() const { return flags() & Moves::CAPTURE_FLAG; }
-        bool is_promotion() const { return flags() & Moves::PROMOTION_FLAG; }
-        bool is_quiet() const { return !(flags() & Moves::NON_QUIET_MOVE_FLAG); }
-        bool is_double_pawn_push() const { return flags() == Moves::DOUBLE_PAWN_PUSH_FLAG; }
-        bool is_enpassant() const { return flags() == Moves::ENPASSANT_FLAG; }
-        bool is_castle() const { return flags() == Moves::KINGSIDE_CASTLE_FLAG || flags() == Moves::QUEENSIDE_CASTLE_FLAG; }
+        bool is_capture() const { return flags() & moves::CAPTURE_FLAG; }
+        bool is_promotion() const { return flags() & moves::PROMOTION_FLAG; }
+        bool is_quiet() const { return !(flags() & moves::NON_QUIET_MOVE_FLAG); }
+        bool is_double_pawn_push() const { return flags() == moves::DOUBLE_PAWN_PUSH_FLAG; }
+        bool is_enpassant() const { return flags() == moves::ENPASSANT_FLAG; }
+        bool is_castle() const { return flags() == moves::KINGSIDE_CASTLE_FLAG || flags() == moves::QUEENSIDE_CASTLE_FLAG; }
 
         // Logical operators - comparisions
         friend bool operator==(const Move& m1, const Move& m2) { return m1.m_move == m2.m_move; }
@@ -95,7 +95,7 @@ namespace Chess {
         friend std::ostream& operator<<(std::ostream& os, const Move& move);
 
     protected:
-        Moves::Mask m_move = 0;
+        moves::Mask m_move = 0;
     };
 
 
@@ -103,7 +103,7 @@ namespace Chess {
     // Move definitions - null move
     // ----------------------------
 
-    namespace Moves {
+    namespace moves {
 
         // A singleton null move representation
         // - In exact terms, we represent null move as a quiet move from A1 to A1

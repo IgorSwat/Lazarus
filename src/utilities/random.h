@@ -12,14 +12,14 @@ namespace utilities::random {
 	// Random number generator interface
 	// ---------------------------------
 
-    // Set of type-dependable interfaces which should be implemented by all below generators
+    // Set of type-dependable generator-like interfaces which should be implemented by all below generators
     template <typename NumType>
     class Generator
     {
     public:
         Generator(NumType seed) : m_seed(seed) {}
 
-        virtual NumType random() = 0;
+        virtual NumType operator()() = 0;
 
     protected:
         NumType m_seed;
@@ -39,7 +39,7 @@ namespace utilities::random {
         StandardGenerator(IntType seed) : Generator<IntType>(seed), m_generator(seed), 
                                           m_distribution(std::numeric_limits<IntType>::min(), std::numeric_limits<IntType>::max()) {}
 
-        IntType random() override { return m_distribution(m_generator); }
+        IntType operator()() override { return m_distribution(m_generator); }
 
     private:
         std::mt19937_64 m_generator;
@@ -59,7 +59,7 @@ namespace utilities::random {
     public:
         MagicsGenerator(uint64_t seed) : Generator<uint64_t>(seed) {}
 
-        uint64_t random()
+        uint64_t operator()() override
         {
             return _random() & _random() & _random();
         }

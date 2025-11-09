@@ -7,7 +7,7 @@
 // Type definitions - general move representations
 // -----------------------------------------------
 
-namespace Chess {
+namespace chess {
 
     // We can distinguish 4 main types of moves: standard moves, and 3 special categories (enpassant, castle and promotion)
     // - The categories are completely separate
@@ -29,7 +29,7 @@ namespace Chess {
 // Type definitions - engine-specific move representations
 // -------------------------------------------------------
 
-namespace Engine {
+namespace engine {
 
     // Move enhancement definition
     // - Enhancement is some additional information about move, embedded together with Move object itself

@@ -55,7 +55,7 @@ namespace chess::board {
     }
 
     // Main iniitializer
-    void initialize_board_space()
+    void initialize_board_geometry()
     {
         // Iterate over every possible square
         for (int sq1 = 0; sq1 < SQUARE_RANGE; sq1++) {

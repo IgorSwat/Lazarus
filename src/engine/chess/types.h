@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../bitboards/types.h"
+#include <bitboards/types.h>
 #include <cinttypes>
 #include <cstring>
 #include <iostream>

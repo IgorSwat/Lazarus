@@ -1,7 +1,7 @@
 #include "magics.h"
-#include "../chess/chessboard.h"
-#include "../chess/pieces.h"
-#include "../../utilities/random.h"
+#include <chess/chessboard.h>
+#include <chess/pieces.h>
+#include <utilities/random.h>
 #include <vector>
 
 using namespace chess;
@@ -73,13 +73,13 @@ namespace bitboards::magics {
 				size++;
 			} while (bb != 0);
 
-            utilities::random::MagicsGenerator gen(RANDOM_SEED);
+            utilities::random::MagicsGenerator rng(RANDOM_SEED);
 
             // I will leave this code without explanation because it was so long ago the last time I touched it
             // that I don't even remember how does this shit work :)
 			uint64_t magic;
 			for (int i = 0; i < size; ) {
-				for (magic = 0; bitboards::popcount((magic * mask) >> 56) < 6; magic = gen.random()) 
+				for (magic = 0; bitboards::popcount((magic * mask) >> 56) < 6; magic = rng()) 
 					continue;
 				m.magic = magic;
 				for (i = 0; i < size; i++) {

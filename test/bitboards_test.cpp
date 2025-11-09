@@ -1,5 +1,5 @@
 #include "test.h"
-#include "../src/engine/bitboards/bitboards.h"
+#include <bitboards/bitboards.h>
 
 
 namespace testing {

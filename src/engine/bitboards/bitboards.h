@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../chess/types.h"
-#include <string>
+#include <chess/types.h>
 #include <nmmintrin.h>
+#include <string>
 
 
 namespace bitboards {
