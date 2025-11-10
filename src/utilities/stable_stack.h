@@ -26,9 +26,9 @@ namespace utilities {
         // Getters - accessing elements
         T& top() { return container.back(); }
         const T& top() const { return container.back(); }
-        T& top_n(int n) { return container[container.size() - n - 1]; }                        // n-th element from the top (0 = top element)
-        const T& top_n(int n) const { return container[container.size() - n - 1]; }            // n-th element from the top (0 = top element)
-        int size() const { return container.size(); }
+        T& top_n(unsigned n) { return container[container.size() - n - 1]; }                        // n-th element from the top (0 = top element)
+        const T& top_n(unsigned n) const { return container[container.size() - n - 1]; }            // n-th element from the top (0 = top element)
+        unsigned size() const { return container.size(); }
         bool empty() const { return container.empty(); }
         bool full() const { return container.full(); }
 
@@ -42,7 +42,7 @@ namespace utilities {
     // Stable stack - public definition
     // --------------------------------
 
-    template <memory::Storage storage, typename T, int size>
+    template <memory::Storage storage, typename T, unsigned size>
     using StableStack = std::conditional<
         storage == memory::Storage::STATIC,
         __stable_stack<__static_vector<T, size>, T>,

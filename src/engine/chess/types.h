@@ -234,9 +234,9 @@ namespace chess {
 	constexpr inline Square operator+(Square sq, Direction dir)
 	{
 		// IMPLEMENTATION: overflows on signed integers in C++ are well defined and can be used in our favour
-		uint32_t target = uint32_t(sq) + int32_t(dir);
+		uint32_t target = int32_t(sq) + int32_t(dir);
 
-		return ((sq ^ target) & 0xFFFFFFc7) < 7 ? Square(target) : NULL_SQUARE;
+		return ((sq ^ target) & 0xFFFFFFc7) < 7 + (sq % 8) * (target % 8) ? Square(target) : NULL_SQUARE;
 	}
 
 	// Returns shifted square, or a NULL_SQUARE if we go out of board bounds (either horizontaly or verticaly)
@@ -245,7 +245,7 @@ namespace chess {
 		// IMPLEMENTATION: overflows on signed integers in C++ are well defined and can be used in our favour
 		uint32_t target = uint32_t(sq) - int32_t(dir);
 
-		return ((sq ^ target) & 0xFFFFFFc7) < 7 ? Square(target) : NULL_SQUARE;
+		return ((sq ^ target) & 0xFFFFFFc7) < 7 + (sq % 8) * (target % 8) ? Square(target) : NULL_SQUARE;
 	}
 
 
